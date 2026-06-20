@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Tactica Terms of Service — the rules and guidelines for using our tactical intelligence engine."/>
+<meta name="theme-color" content="#0D1317"/>
+<title>Terms of Service — Tactica</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --bg:    #0D1317;
+  --bg2:   #0A0F13;
+  --sur:   #1A242B;
+  --sur2:  #223040;
+  --bd:    #2A3B47;
+  --bd2:   #34495a;
+  --volt:  #CCFF00;
+  --volt2: #E8FF66;
+  --cyan:  #00E5FF;
+  --tx:    #FFFFFF;
+  --mt:    #8E9BAE;
+  --mt2:   #5C6B7C;
+
+  --ff-display: 'Playfair Display', Georgia, serif;
+  --ff-body:    'DM Sans', sans-serif;
+  --ff-mono:    'Space Mono', monospace;
+
+  --nav-h: 76px;
+  --max:   1280px;
+  --r:     16px;
+  --r2:    24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: var(--ff-body);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; outline: none; background: none; font-family: inherit; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bd2); border-radius: 3px; }
+
+.container { max-width: var(--max); margin: 0 auto; padding: 0 40px; }
+.section { padding: 110px 0; }
+.section--sm { padding: 70px 0; }
+
+.label {
+  font-family: var(--ff-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--volt);
+}
+.title {
+  font-family: var(--ff-display);
+  font-size: clamp(34px, 4.8vw, 52px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -.01em;
+}
+.title em { font-style: italic; color: var(--volt); font-weight: 700; }
+.subtitle { font-size: 16px; font-weight: 400; color: var(--mt); line-height: 1.75; max-width: 600px; }
+.divider { width: 48px; height: 2px; background: var(--volt); margin: 22px 0; border-radius: 2px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 30px; border-radius: 12px;
+  font-size: 14px; font-weight: 700; letter-spacing: .02em;
+  transition: all .25s ease; cursor: pointer; font-family: var(--ff-body);
+}
+.btn-volt { background: var(--volt); color: #0a1000; box-shadow: 0 8px 32px rgba(204,255,0,.22); }
+.btn-volt:hover { background: var(--volt2); box-shadow: 0 12px 40px rgba(204,255,0,.35); transform: translateY(-2px); }
+
+#nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 100; transition: background .3s, border-color .3s; }
+#nav.scrolled { background: rgba(13,19,23,.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--bd); }
+.nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 40px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo-mark { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--volt) 0%, var(--cyan) 100%); display: flex; align-items: center; justify-content: center; font-family: var(--ff-display); font-weight: 900; font-size: 18px; color: #060A0C; }
+.nav-logo-name { font-family: var(--ff-display); font-size: 22px; font-weight: 900; color: var(--tx); letter-spacing: -.01em; }
+.nav-links { display: flex; align-items: center; gap: 36px; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--mt); transition: color .2s; }
+.nav-links a:hover { color: var(--tx); }
+.nav-cta { display: flex; align-items: center; gap: 14px; }
+.nav-launch { padding: 10px 22px; background: var(--volt); color: #0a1000; border-radius: 10px; font-size: 13px; font-weight: 700; transition: all .2s; display: flex; align-items: center; gap: 8px; }
+.nav-launch:hover { background: var(--volt2); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 24px; height: 1.5px; background: var(--tx); border-radius: 2px; transition: all .3s; }
+
+.mobile-nav { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(13,19,23,.98); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+.mobile-nav.open { display: flex; }
+.mobile-nav a { font-family: var(--ff-display); font-size: 28px; font-weight: 700; color: var(--mt); transition: color .2s; }
+.mobile-nav a:hover { color: var(--volt); }
+.mobile-close { position: absolute; top: 28px; right: 28px; width: 44px; height: 44px; border-radius: 50%; background: var(--sur); display: flex; align-items: center; justify-content: center; color: var(--tx); cursor: pointer; }
+
+#footer { background: var(--bg2); border-top: 1px solid var(--bd); padding: 60px 0 32px; }
+.footer-top { max-width: var(--max); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+.footer-brand-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.footer-logo-mark { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--volt) 0%, var(--cyan) 100%); display: flex; align-items: center; justify-content: center; font-family: var(--ff-display); font-weight: 900; font-size: 17px; color: #060A0C; }
+.footer-logo-name { font-family: var(--ff-display); font-size: 24px; font-weight: 900; }
+.footer-desc { font-size: 14px; color: var(--mt2); line-height: 1.75; max-width: 280px; margin-bottom: 20px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a { width: 36px; height: 36px; border-radius: 8px; background: var(--sur); border: 1px solid var(--bd); display: flex; align-items: center; justify-content: center; color: var(--mt2); transition: all .2s; }
+.footer-social a:hover { border-color: var(--volt); color: var(--volt); }
+.footer-col-title { font-size: 12px; font-weight: 700; font-family: var(--ff-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--mt2); margin-bottom: 20px; }
+.footer-links { display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 14px; color: var(--mt2); transition: color .2s; }
+.footer-links a:hover { color: var(--volt); }
+.footer-bottom { max-width: var(--max); margin: 0 auto; padding: 28px 40px 0; border-top: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-copy { font-size: 12px; color: var(--mt2); }
+.footer-copy .by { color: var(--mt); }
+.footer-copy a { color: var(--volt); font-weight: 600; }
+.footer-copy a:hover { text-decoration: underline; }
+.footer-legal { display: flex; gap: 24px; }
+.footer-legal a { font-size: 12px; color: var(--mt2); transition: color .2s; }
+.footer-legal a:hover { color: var(--volt); }
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: .08s; }
+.reveal-delay-2 { transition-delay: .16s; }
+
+#page-hero { padding-top: calc(var(--nav-h) + 70px); padding-bottom: 50px; position: relative; overflow: hidden; }
+.page-hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 700px 500px at 85% 0%, rgba(204,255,0,.06) 0%, transparent 60%), linear-gradient(170deg, #0D1317 0%, #0A1014 100%); }
+
+/* ═══ legal doc layout ═══ */
+.legal-wrap { display: grid; grid-template-columns: 280px 1fr; gap: 60px; align-items: start; }
+.legal-toc { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 4px; }
+.legal-toc-title { font-size: 11px; font-weight: 700; color: var(--mt2); letter-spacing: .15em; text-transform: uppercase; font-family: var(--ff-mono); margin-bottom: 14px; }
+.legal-toc a { font-size: 13.5px; color: var(--mt); padding: 9px 0; border-left: 2px solid transparent; padding-left: 14px; transition: all .2s; }
+.legal-toc a:hover, .legal-toc a.active { color: var(--volt); border-left-color: var(--volt); }
+.legal-updated { font-size: 12.5px; color: var(--mt2); margin-bottom: 36px; font-family: var(--ff-mono); }
+.legal-section { margin-bottom: 42px; }
+.legal-h2 { font-family: var(--ff-display); font-size: 22px; font-weight: 700; color: var(--tx); margin-bottom: 14px; scroll-margin-top: 100px; }
+.legal-p { font-size: 14.5px; color: var(--mt); line-height: 1.85; margin-bottom: 14px; }
+.legal-p strong { color: var(--tx); font-weight: 600; }
+.legal-list { display: flex; flex-direction: column; gap: 10px; margin: 14px 0 14px 0; }
+.legal-list li { font-size: 14.5px; color: var(--mt); line-height: 1.8; padding-left: 20px; position: relative; }
+.legal-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--volt); }
+.legal-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
+.legal-table th { text-align: left; padding: 10px 14px; background: var(--sur); color: var(--volt); font-weight: 700; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; border-bottom: 1px solid var(--bd); }
+.legal-table td { padding: 12px 14px; border-bottom: 1px solid var(--bd); color: var(--mt); }
+.legal-table tr:last-child td { border-bottom: none; }
+.legal-callout { background: var(--sur); border: 1px solid var(--bd); border-radius: var(--r); padding: 20px 24px; margin: 16px 0; }
+.legal-callout p { margin: 0; font-size: 14px; color: var(--mt); line-height: 1.75; }
+.legal-callout p strong { color: var(--volt); }
+
+@media (max-width: 900px) {
+  .legal-wrap { grid-template-columns: 1fr; gap: 32px; }
+  .legal-toc { position: static; display: none; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+  .section { padding: 70px 0; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .footer-top { grid-template-columns: 1fr; gap: 36px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .legal-table { font-size: 12px; }
+  .legal-table th, .legal-table td { padding: 8px 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">T</div>
+      <div class="nav-logo-name">Tactica</div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how">How It Works</a>
+      <a href="index.html#screens">App</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="https://app.tactica.com.ng" target="_blank" class="nav-launch">
+        Launch Web App
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-close" onclick="toggleMobile()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </div>
+  <a href="index.html#features" onclick="toggleMobile()">Features</a>
+  <a href="index.html#how" onclick="toggleMobile()">How It Works</a>
+  <a href="index.html#screens" onclick="toggleMobile()">App</a>
+  <a href="index.html#faq" onclick="toggleMobile()">FAQ</a>
+  <a href="https://app.tactica.com.ng" target="_blank" onclick="toggleMobile()" style="color:var(--volt)">Launch Web App →</a>
+</div>
+
+<section id="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <span class="label reveal">Legal</span>
+    <div class="divider reveal"></div>
+    <h1 class="title reveal reveal-delay-1">Terms of <em>Service.</em></h1>
+    <p class="subtitle reveal reveal-delay-2" style="margin-top:18px">
+      The rules and guidelines for using the Tactica engine, website, web app, and mobile app.
+    </p>
+  </div>
+</section>
+
+<section class="section--sm">
+  <div class="container">
+    <div class="legal-wrap">
+
+      <nav class="legal-toc">
+        <div class="legal-toc-title">On This Page</div>
+        <a href="#acceptance">Acceptance of Terms</a>
+        <a href="#description">Description of Service</a>
+        <a href="#accounts">User Accounts</a>
+        <a href="#acceptable-use">Acceptable Use</a>
+        <a href="#disclaimer">Tactical Disclaimer</a>
+        <a href="#ip">Intellectual Property</a>
+        <a href="#third-party-terms">Third-Party Services</a>
+        <a href="#termination">Termination</a>
+        <a href="#liability">Limitation of Liability</a>
+        <a href="#governing-law">Governing Law</a>
+        <a href="#changes-terms">Changes to These Terms</a>
+        <a href="#contact-terms">Contact Us</a>
+      </nav>
+
+      <div>
+        <div class="legal-updated reveal">Last updated: June 2026</div>
+
+        <div class="legal-section reveal" id="acceptance">
+          <h2 class="legal-h2">1. Acceptance of Terms</h2>
+          <p class="legal-p">By accessing or using Tactica's website, web application, or mobile app (collectively, the "Service"), operated by <strong>Linea Football</strong>, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service.</p>
+        </div>
+
+        <div class="legal-section reveal" id="description">
+          <h2 class="legal-h2">2. Description of Service</h2>
+          <p class="legal-p">Tactica is an AI-powered football tactical intelligence engine. The Service provides formation predictions, Starting XI recommendations, opponent analysis, live match data, and AI-generated tactical chat responses based on real football data and a trained machine learning model.</p>
+          <div class="legal-callout">
+            <p><strong>Tactica is a coaching and analysis tool — it is not a betting, gambling, or odds-prediction service.</strong> All recommendations are tactical in nature and intended to support football decision-making, not financial wagering.</p>
+          </div>
+        </div>
+
+        <div class="legal-section reveal" id="accounts">
+          <h2 class="legal-h2">3. User Accounts</h2>
+          <p class="legal-p">Some features of Tactica may require you to create an account. When you do, you agree to:</p>
+          <ul class="legal-list">
+            <li>Provide accurate and complete information</li>
+            <li>Maintain the security of your password and account</li>
+            <li>Accept responsibility for all activity that occurs under your account</li>
+            <li>Notify us immediately of any unauthorised use of your account</li>
+          </ul>
+          <p class="legal-p">You must be at least 13 years old to create an account.</p>
+        </div>
+
+        <div class="legal-section reveal" id="acceptable-use">
+          <h2 class="legal-h2">4. Acceptable Use</h2>
+          <p class="legal-p">You agree not to:</p>
+          <ul class="legal-list">
+            <li>Use the Service for any unlawful purpose or in violation of any applicable regulations</li>
+            <li>Attempt to reverse-engineer, scrape, or extract the underlying machine learning model or training data</li>
+            <li>Send abusive, harmful, or harassing content through the AI tactical chat</li>
+            <li>Attempt to overload, disrupt, or gain unauthorised access to our servers or infrastructure</li>
+            <li>Use automated systems (bots, scrapers) to access the Service without our written permission</li>
+            <li>Misrepresent Tactica's outputs as guaranteed outcomes, professional betting advice, or financial guidance</li>
+          </ul>
+        </div>
+
+        <div class="legal-section reveal" id="disclaimer">
+          <h2 class="legal-h2">5. Tactical Disclaimer</h2>
+          <p class="legal-p">Formation recommendations, win probabilities, Starting XI selections, and player ratings generated by Tactica are produced by a statistical machine learning model based on historical and live football data. These outputs are <strong>estimates and tactical suggestions only</strong> — they do not guarantee match outcomes, player performance, or any specific result.</p>
+          <p class="legal-p">Football is unpredictable. Coaches and users should apply their own judgement alongside any recommendation provided by the Service.</p>
+        </div>
+
+        <div class="legal-section reveal" id="ip">
+          <h2 class="legal-h2">6. Intellectual Property</h2>
+          <p class="legal-p">The Tactica name, logo, design, machine learning model, and underlying software are the property of Linea Football. You may not copy, modify, distribute, or create derivative works from the Service without our prior written consent.</p>
+          <p class="legal-p">Football data displayed within the Service (team names, player names, statistics) is sourced from third-party providers and remains subject to their respective rights.</p>
+        </div>
+
+        <div class="legal-section reveal" id="third-party-terms">
+          <h2 class="legal-h2">7. Third-Party Services</h2>
+          <p class="legal-p">Tactica integrates with third-party services including BSD (football data), Google Gemini (AI chat), and Firebase (authentication and storage). Your use of features powered by these services is also subject to their respective terms of service.</p>
+        </div>
+
+        <div class="legal-section reveal" id="termination">
+          <h2 class="legal-h2">8. Termination</h2>
+          <p class="legal-p">We reserve the right to suspend or terminate your access to the Service at our discretion, without notice, for conduct that we believe violates these Terms or is harmful to other users, us, or third parties.</p>
+          <p class="legal-p">You may stop using the Service or delete your account at any time by contacting us at hello@lineafootball.com.</p>
+        </div>
+
+        <div class="legal-section reveal" id="liability">
+          <h2 class="legal-h2">9. Limitation of Liability</h2>
+          <p class="legal-p">The Service is provided "as is" and "as available" without warranties of any kind, either express or implied. Linea Football shall not be liable for any indirect, incidental, special, or consequential damages resulting from your use of, or inability to use, the Service — including but not limited to decisions made based on tactical recommendations provided by Tactica.</p>
+        </div>
+
+        <div class="legal-section reveal" id="governing-law">
+          <h2 class="legal-h2">10. Governing Law</h2>
+          <p class="legal-p">These Terms shall be governed by and construed in accordance with the laws of the Federal Republic of Nigeria, without regard to its conflict of law provisions.</p>
+        </div>
+
+        <div class="legal-section reveal" id="changes-terms">
+          <h2 class="legal-h2">11. Changes to These Terms</h2>
+          <p class="legal-p">We may revise these Terms from time to time. The most current version will always be posted on this page with an updated "Last updated" date. Continued use of the Service after changes take effect constitutes acceptance of the revised Terms.</p>
+        </div>
+
+        <div class="legal-section reveal" id="contact-terms">
+          <h2 class="legal-h2">12. Contact Us</h2>
+          <p class="legal-p">If you have questions about these Terms of Service, reach out to us at <strong style="color:#CCFF00">hello@lineafootball.com</strong> or visit our <a href="contact.html" style="color:#00E5FF;text-decoration:underline">Contact page</a>.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-row">
+        <div class="footer-logo-mark">T</div>
+        <div class="footer-logo-name">Tactica</div>
+      </div>
+      <p class="footer-desc">AI-powered tactical intelligence for football. Formation prediction, Starting XI selection, live match analysis, and AI tactical chat — free, for every coach.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram" title="Coming soon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="X / Twitter" title="Coming soon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" title="Coming soon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#how">How It Works</a>
+        <a href="index.html#screens">App Preview</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Get Started</div>
+      <div class="footer-links">
+        <a href="https://app.tactica.com.ng" target="_blank">Launch Web App</a>
+        <a href="#">App Store</a>
+        <a href="#">Google Play</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">
+      <span class="by">© 2026 Tactica.</span> A product by <a href="https://lineafootball.com" target="_blank">Linea Football</a>
+    </div>
+    <div class="footer-legal">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+function toggleMobile() {
+  document.getElementById('mobileNav').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('mobileNav').classList.contains('open') ? 'hidden' : '';
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Highlight active TOC item on scroll
+const tocLinks = document.querySelectorAll('.legal-toc a');
+const sections = document.querySelectorAll('.legal-section');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top <= 140) current = sec.id;
+  });
+  tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+</script>
+</body>
+</html>

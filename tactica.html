@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Tactica — AI-powered tactical intelligence for football. Formation prediction, Starting XI selection, live match analysis, and AI tactical chat. Free, for every coach."/>
+<meta name="theme-color" content="#0D1317"/>
+<title>Tactica — Football Intelligence Engine</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+
+<style>
+/* ═══════════════════════════════════════════════
+   TOKENS — Neon Pitch
+═══════════════════════════════════════════════ */
+:root {
+  --bg:    #0D1317;
+  --bg2:   #0A0F13;
+  --sur:   #1A242B;
+  --sur2:  #223040;
+  --bd:    #2A3B47;
+  --bd2:   #34495a;
+  --volt:  #CCFF00;
+  --volt2: #E8FF66;
+  --cyan:  #00E5FF;
+  --cyan2: #6FF0FF;
+  --tx:    #FFFFFF;
+  --mt:    #8E9BAE;
+  --mt2:   #5C6B7C;
+  --grn:   #00E676;
+  --red:   #FF4757;
+  --amber: #FFB830;
+
+  --ff-display: 'Playfair Display', Georgia, serif;
+  --ff-body:    'DM Sans', sans-serif;
+  --ff-mono:    'Space Mono', monospace;
+
+  --nav-h: 76px;
+  --max:   1280px;
+  --r:     16px;
+  --r2:    24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: var(--ff-body);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; outline: none; background: none; font-family: inherit; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bd2); border-radius: 3px; }
+
+/* ═══════════════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════════════ */
+.container { max-width: var(--max); margin: 0 auto; padding: 0 40px; }
+.section { padding: 110px 0; }
+.section--sm { padding: 70px 0; }
+
+.label {
+  font-family: var(--ff-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--volt);
+}
+.title {
+  font-family: var(--ff-display);
+  font-size: clamp(34px, 4.8vw, 58px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -.01em;
+}
+.title em { font-style: italic; color: var(--volt); font-weight: 700; }
+.title .cy { color: var(--cyan); }
+.subtitle { font-size: 17px; font-weight: 400; color: var(--mt); line-height: 1.75; max-width: 540px; }
+
+.divider { width: 48px; height: 2px; background: var(--volt); margin: 22px 0; border-radius: 2px; }
+.center { text-align: center; margin-left: auto; margin-right: auto; }
+
+/* ═══════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: .02em;
+  transition: all .25s ease;
+  cursor: pointer;
+  font-family: var(--ff-body);
+}
+.btn-volt {
+  background: var(--volt);
+  color: #0a1000;
+  box-shadow: 0 8px 32px rgba(204,255,0,.22);
+}
+.btn-volt:hover { background: var(--volt2); box-shadow: 0 12px 40px rgba(204,255,0,.35); transform: translateY(-2px); }
+.btn-cyan-outline {
+  background: rgba(0,229,255,.06);
+  color: var(--cyan);
+  border: 1px solid rgba(0,229,255,.3);
+}
+.btn-cyan-outline:hover { background: rgba(0,229,255,.12); border-color: var(--cyan); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent; color: var(--tx);
+  border: 1px solid var(--bd2);
+}
+.btn-outline:hover { border-color: var(--volt); color: var(--volt); transform: translateY(-2px); }
+.btn-ghost {
+  background: transparent; color: var(--volt);
+  padding: 10px 0; font-size: 13px; font-weight: 700;
+  letter-spacing: .05em;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-ghost svg { transition: transform .2s; }
+.btn-ghost:hover svg { transform: translateX(4px); }
+.btn-ghost:hover { color: var(--volt2); }
+
+/* store badges */
+.store-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.store-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 20px;
+  background: var(--sur);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  transition: all .2s;
+}
+.store-btn:hover { border-color: var(--bd2); background: var(--sur2); transform: translateY(-2px); }
+.store-btn .ic { width: 26px; height: 26px; flex-shrink: 0; }
+.store-btn .tx { display: flex; flex-direction: column; line-height: 1.25; }
+.store-btn .tx .small { font-size: 9px; color: var(--mt); letter-spacing: .05em; text-transform: uppercase; }
+.store-btn .tx .big { font-size: 14px; font-weight: 700; color: var(--tx); }
+
+/* ═══════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════ */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h); z-index: 100;
+  transition: background .3s, border-color .3s;
+}
+#nav.scrolled { background: rgba(13,19,23,.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--bd); }
+.nav-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 40px;
+  height: 100%; display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo-mark {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--volt) 0%, var(--cyan) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-display); font-weight: 900; font-size: 18px; color: #060A0C;
+}
+.nav-logo-name { font-family: var(--ff-display); font-size: 22px; font-weight: 900; color: var(--tx); letter-spacing: -.01em; }
+.nav-links { display: flex; align-items: center; gap: 36px; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--mt); transition: color .2s; }
+.nav-links a:hover { color: var(--tx); }
+.nav-cta { display: flex; align-items: center; gap: 14px; }
+.nav-launch {
+  padding: 10px 22px; background: var(--volt); color: #0a1000;
+  border-radius: 10px; font-size: 13px; font-weight: 700; transition: all .2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-launch:hover { background: var(--volt2); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 24px; height: 1.5px; background: var(--tx); border-radius: 2px; transition: all .3s; }
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+#hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding-top: var(--nav-h); }
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 800px 700px at 80% 20%, rgba(204,255,0,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 700px 600px at 10% 85%, rgba(0,229,255,.06) 0%, transparent 60%),
+    linear-gradient(170deg, #0D1317 0%, #0A1014 50%, #0D1317 100%);
+}
+.hero-pitch {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(204,255,0,.025) 80px),
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(0,229,255,.02) 80px);
+  mask-image: radial-gradient(ellipse 75% 75% at 60% 50%, black 25%, transparent 80%);
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: var(--max); margin: 0 auto; padding: 60px 40px 60px;
+  display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center;
+}
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+.hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--volt); box-shadow: 0 0 12px var(--volt); animation: pulse 2.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
+.hero-title {
+  font-family: var(--ff-display); font-weight: 900;
+  font-size: clamp(40px, 6vw, 72px); line-height: 1.08; letter-spacing: -.02em;
+  margin-bottom: 24px;
+}
+.hero-title em { font-style: italic; color: var(--volt); }
+.hero-title .cy { color: var(--cyan); }
+.hero-sub { font-size: 17px; font-weight: 400; color: var(--mt); line-height: 1.75; max-width: 480px; margin-bottom: 36px; }
+.hero-actions { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+.hero-launch-row { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* phone mockup */
+.hero-visual { position: relative; display: flex; justify-content: center; }
+.phone {
+  width: 290px; height: 590px;
+  background: var(--bg2);
+  border-radius: 38px;
+  border: 1.5px solid #1c2730;
+  box-shadow: 0 0 0 8px #060A0C, 0 40px 90px rgba(0,0,0,.7), 0 0 60px rgba(204,255,0,.06);
+  overflow: hidden; position: relative;
+  animation: floatPhone 6s ease-in-out infinite;
+}
+@keyframes floatPhone { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-14px) rotate(-1deg)} }
+.phone-2 {
+  width: 250px; height: 510px;
+  position: absolute; top: 60px; left: -150px;
+  z-index: -1; opacity: .55;
+  animation: floatPhone2 7s ease-in-out infinite;
+  border-radius: 32px;
+}
+@keyframes floatPhone2 { 0%,100%{transform:translateY(0) rotate(4deg)} 50%{transform:translateY(10px) rotate(5deg)} }
+.phone-screen { width: 100%; height: 100%; padding: 16px 14px; display: flex; flex-direction: column; gap: 10px; }
+.ph-time { font-size: 11px; color: var(--tx); font-weight: 600; margin-bottom: 4px; }
+.ph-head { font-family: var(--ff-display); font-size: 20px; font-weight: 900; margin-bottom: 4px; line-height: 1.15; }
+.ph-sub { font-size: 9px; color: var(--mt); margin-bottom: 8px; line-height: 1.5; }
+.ph-card { background: var(--sur); border: 1px solid var(--bd); border-radius: 12px; padding: 11px; }
+.ph-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.ph-row:last-child { margin-bottom: 0; }
+.ph-pill { font-size: 8px; font-weight: 700; padding: 3px 8px; border-radius: 100px; letter-spacing: .05em; }
+.ph-pill.volt { background: rgba(204,255,0,.1); color: var(--volt); border:1px solid rgba(204,255,0,.2); }
+.ph-pill.cyan { background: rgba(0,229,255,.1); color: var(--cyan); border:1px solid rgba(0,229,255,.2); }
+.ph-stat-big { font-family: var(--ff-display); font-size: 28px; font-weight: 900; color: var(--volt); line-height: 1; }
+.ph-label { font-size: 8px; color: var(--mt); text-transform: uppercase; letter-spacing: .08em; margin-top: 2px; }
+.ph-bar-track { height: 5px; background: var(--bd); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+.ph-bar-fill { height: 100%; background: linear-gradient(90deg, var(--volt), var(--volt2)); border-radius: 3px; }
+.ph-player { display: flex; align-items: center; gap: 8px; padding: 7px 9px; background: var(--bg); border-radius: 8px; border-left: 2px solid var(--volt); margin-bottom: 5px; }
+.ph-player:last-child { margin-bottom: 0; }
+.ph-pos { font-size: 7px; font-weight: 800; color: var(--volt); background: rgba(204,255,0,.1); border-radius: 4px; padding: 2px 5px; }
+.ph-pname { font-size: 10px; color: var(--tx); font-weight: 600; flex:1; }
+.ph-pstat { font-size: 8px; color: var(--mt); }
+.ph-nav { margin-top: auto; display: flex; justify-content: space-around; padding-top: 10px; border-top: 1px solid var(--bd); }
+.ph-nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 7px; color: var(--mt); }
+.ph-nav-item.active { color: var(--volt); }
+.ph-nav-dot { width: 16px; height: 16px; border-radius: 4px; display:flex; align-items:center; justify-content:center; }
+
+/* floating badges around phone */
+.float-badge {
+  position: absolute;
+  background: var(--sur); border: 1px solid var(--bd);
+  border-radius: 12px; padding: 10px 14px;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; color: var(--tx);
+  box-shadow: 0 12px 32px rgba(0,0,0,.4);
+  animation: floatBadge 5s ease-in-out infinite;
+}
+.float-badge .ic { font-size: 16px; }
+.float-badge.b1 { top: 16%; right: -8px; animation-delay: .5s; }
+.float-badge.b2 { bottom: 22%; left: -28px; animation-delay: 1.5s; }
+@keyframes floatBadge { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+/* ═══════════════════════════════════════════════
+   STRIP
+═══════════════════════════════════════════════ */
+#strip { border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd); background: rgba(26,36,43,.4); padding: 36px 0; }
+.strip-inner { max-width: var(--max); margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+.strip-item { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.strip-item + .strip-item { padding-left: 40px; border-left: 1px solid var(--bd); }
+.strip-num { font-family: var(--ff-display); font-size: 36px; font-weight: 900; color: var(--volt); line-height: 1; }
+.strip-num.cy { color: var(--cyan); }
+.strip-label { font-size: 12px; color: var(--mt); font-weight: 400; }
+
+/* ═══════════════════════════════════════════════
+   FEATURES
+═══════════════════════════════════════════════ */
+#features { background: var(--bg); }
+.features-header { max-width: 640px; margin-bottom: 64px; }
+.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.feature-card {
+  background: var(--sur); border: 1px solid var(--bd); border-radius: var(--r2);
+  padding: 32px 28px; position: relative; overflow: hidden;
+  transition: border-color .3s, transform .3s;
+}
+.feature-card:hover { border-color: var(--bd2); transform: translateY(-4px); }
+.feature-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 22px;
+}
+.feature-icon.volt { background: rgba(204,255,0,.08); border: 1px solid rgba(204,255,0,.18); }
+.feature-icon.cyan { background: rgba(0,229,255,.08); border: 1px solid rgba(0,229,255,.18); }
+.feature-num { font-family: var(--ff-mono); font-size: 11px; color: var(--mt2); letter-spacing: .15em; margin-bottom: 10px; }
+.feature-title { font-family: var(--ff-display); font-size: 21px; font-weight: 700; margin-bottom: 10px; }
+.feature-desc { font-size: 14px; color: var(--mt); line-height: 1.75; font-weight: 400; }
+
+/* ═══════════════════════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════════════════════ */
+#how { background: var(--sur); border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd); }
+.how-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--bd); border-radius: var(--r2); overflow: hidden; }
+.how-step { background: var(--bg); padding: 48px 36px; position: relative; }
+.how-step-num {
+  font-family: var(--ff-display); font-size: 64px; font-weight: 900;
+  color: transparent; -webkit-text-stroke: 1.5px var(--bd2);
+  line-height: 1; margin-bottom: 18px;
+}
+.how-step-title { font-family: var(--ff-display); font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+.how-step-desc { font-size: 14px; color: var(--mt); line-height: 1.75; }
+.how-arrow {
+  position: absolute; top: 50%; right: -14px; transform: translateY(-50%);
+  width: 28px; height: 28px; background: var(--volt); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; z-index: 2;
+}
+.how-step:last-child .how-arrow { display: none; }
+
+/* ═══════════════════════════════════════════════
+   SCREENSHOTS
+═══════════════════════════════════════════════ */
+#screens { background: var(--bg); overflow: hidden; }
+.screens-header { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+.screens-row { display: flex; gap: 28px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.screen-frame {
+  width: 260px; height: 540px;
+  background: var(--bg2); border-radius: 32px; border: 1.5px solid #1c2730;
+  box-shadow: 0 0 0 7px #060A0C, 0 30px 70px rgba(0,0,0,.6);
+  overflow: hidden; position: relative; flex-shrink: 0;
+  transition: transform .3s;
+}
+.screen-frame:hover { transform: translateY(-8px); }
+.screen-frame.mid { width: 280px; height: 580px; z-index: 2; }
+.scr-pad { padding: 16px 14px; height: 100%; display: flex; flex-direction: column; }
+.scr-time { font-size: 10px; color: var(--tx); font-weight: 600; margin-bottom: 10px; }
+.scr-lock {
+  width: 50px; height: 50px; border-radius: 14px;
+  background: rgba(0,229,255,.08); border: 1px solid rgba(0,229,255,.2);
+  display: flex; align-items: center; justify-content: center; margin: 30px auto 18px;
+}
+.scr-title { font-family: var(--ff-display); font-size: 22px; font-weight: 900; text-align: center; line-height: 1.2; margin-bottom: 8px; }
+.scr-desc { font-size: 10px; color: var(--mt); text-align: center; line-height: 1.6; padding: 0 6px; margin-bottom: 18px; }
+.scr-input { background: var(--sur); border: 1px solid var(--volt); border-radius: 12px; padding: 10px 12px; margin-bottom: 10px; }
+.scr-input .lbl { font-size: 8px; font-weight: 700; color: var(--volt); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+.scr-input .val { font-size: 12px; color: var(--tx); font-weight: 600; }
+.scr-note { background: var(--sur); border-radius: 10px; padding: 10px 12px; display: flex; gap: 8px; margin-bottom: 16px; }
+.scr-note-tx { font-size: 9px; color: var(--cyan); line-height: 1.5; }
+.scr-cta { background: var(--volt); border-radius: 12px; padding: 13px; text-align: center; font-size: 12px; font-weight: 700; color: #0a1000; }
+.scr-link { text-align: center; font-size: 10px; color: var(--mt); margin-top: 12px; }
+.scr-link b { color: var(--volt); }
+/* profile screen */
+.scr-avatar { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--volt); margin: 12px auto 8px; background: linear-gradient(135deg, var(--sur2), var(--sur)); display:flex; align-items:center; justify-content:center; font-size:24px; }
+.scr-name { font-size: 13px; font-weight: 700; text-align: center; color: var(--tx); }
+.scr-email { font-size: 9px; color: var(--mt); text-align: center; margin-bottom: 8px; }
+.scr-team-badge { background: var(--sur2); border-radius: 100px; padding: 4px 12px; font-size: 9px; font-weight: 600; color: var(--volt); margin: 0 auto 14px; display:block; width: fit-content; }
+.scr-stats-row { display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd); margin-bottom: 12px; }
+.scr-stat { text-align: center; }
+.scr-stat .num { font-family: var(--ff-display); font-size: 18px; font-weight: 900; color: var(--volt); }
+.scr-stat .lbl2 { font-size: 7px; color: var(--mt); text-transform: uppercase; letter-spacing: .08em; }
+.scr-menu-item { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(42,59,71,.4); }
+.scr-menu-ic { width: 28px; height: 28px; border-radius: 8px; background: var(--sur); display:flex; align-items:center; justify-content:center; font-size: 13px; flex-shrink:0; }
+.scr-menu-tx { flex: 1; }
+.scr-menu-tt { font-size: 10px; font-weight: 600; color: var(--tx); }
+.scr-menu-ss { font-size: 8px; color: var(--mt2); }
+/* tactics screen */
+.scr-formation-badge { background: rgba(204,255,0,.1); border:1px solid rgba(204,255,0,.25); border-radius: 10px; padding: 10px; text-align:center; margin-bottom: 10px; }
+.scr-formation-badge .ff { font-family: var(--ff-display); font-size: 24px; font-weight: 900; color: var(--volt); }
+.scr-formation-badge .fl { font-size: 8px; color: var(--mt); text-transform: uppercase; letter-spacing: .1em; }
+.scr-bars { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.scr-bar-row { display: flex; align-items: center; gap: 8px; }
+.scr-bar-label { font-size: 9px; font-weight: 700; color: var(--tx); width: 56px; }
+.scr-bar-track { flex: 1; height: 6px; background: var(--bd); border-radius: 3px; overflow: hidden; }
+.scr-bar-fill { height: 100%; background: linear-gradient(90deg, var(--volt), var(--cyan)); border-radius: 3px; }
+.scr-bar-pct { font-size: 9px; color: var(--volt); font-weight: 700; width: 32px; text-align:right; }
+
+/* ═══════════════════════════════════════════════
+   WHO IT'S FOR
+═══════════════════════════════════════════════ */
+#audience { background: var(--sur); border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd); }
+.audience-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.aud-card {
+  background: var(--bg); border: 1px solid var(--bd); border-radius: var(--r);
+  padding: 26px 22px; transition: border-color .25s, transform .25s;
+}
+.aud-card:hover { border-color: var(--volt); transform: translateY(-3px); }
+.aud-icon { font-size: 28px; margin-bottom: 14px; }
+.aud-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.aud-desc { font-size: 12.5px; color: var(--mt); line-height: 1.65; }
+
+/* ═══════════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════════ */
+#faq { background: var(--bg); }
+.faq-wrap { max-width: 780px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--bd); }
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 26px 0; cursor: pointer; gap: 20px;
+}
+.faq-q-text { font-size: 17px; font-weight: 600; color: var(--tx); font-family: var(--ff-body); }
+.faq-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--sur); border: 1px solid var(--bd);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: transform .3s, background .3s;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); background: rgba(204,255,0,.1); border-color: rgba(204,255,0,.3); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.faq-item.open .faq-a { max-height: 240px; }
+.faq-a-inner { padding: 0 0 26px; font-size: 14.5px; color: var(--mt); line-height: 1.8; max-width: 680px; }
+
+/* ═══════════════════════════════════════════════
+   CTA
+═══════════════════════════════════════════════ */
+#cta {
+  background: linear-gradient(160deg, var(--sur) 0%, var(--bg) 100%);
+  border-top: 1px solid var(--bd);
+  position: relative; overflow: hidden;
+}
+#cta::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(204,255,0,.08) 0%, transparent 70%);
+}
+.cta-inner { position: relative; z-index: 2; text-align: center; max-width: 680px; margin: 0 auto; }
+.cta-title { font-family: var(--ff-display); font-size: clamp(34px, 5vw, 56px); font-weight: 900; line-height: 1.12; margin-bottom: 20px; }
+.cta-title em { font-style: italic; color: var(--volt); }
+.cta-sub { font-size: 16px; color: var(--mt); line-height: 1.75; margin-bottom: 40px; }
+.cta-actions { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.cta-free { font-size: 12px; color: var(--mt2); font-family: var(--ff-mono); letter-spacing: .1em; text-transform: uppercase; }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+#footer { background: var(--bg2); border-top: 1px solid var(--bd); padding: 60px 0 32px; }
+.footer-top {
+  max-width: var(--max); margin: 0 auto; padding: 0 40px;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 48px;
+}
+.footer-brand-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.footer-logo-mark {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--volt) 0%, var(--cyan) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-display); font-weight: 900; font-size: 17px; color: #060A0C;
+}
+.footer-logo-name { font-family: var(--ff-display); font-size: 24px; font-weight: 900; }
+.footer-desc { font-size: 14px; color: var(--mt2); line-height: 1.75; max-width: 280px; margin-bottom: 20px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a {
+  width: 36px; height: 36px; border-radius: 8px; background: var(--sur); border: 1px solid var(--bd);
+  display: flex; align-items: center; justify-content: center; color: var(--mt2); transition: all .2s;
+}
+.footer-social a:hover { border-color: var(--volt); color: var(--volt); }
+.footer-col-title { font-size: 12px; font-weight: 700; font-family: var(--ff-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--mt2); margin-bottom: 20px; }
+.footer-links { display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 14px; color: var(--mt2); transition: color .2s; }
+.footer-links a:hover { color: var(--volt); }
+.footer-bottom {
+  max-width: var(--max); margin: 0 auto; padding: 28px 40px 0; border-top: 1px solid var(--bd);
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+}
+.footer-copy { font-size: 12px; color: var(--mt2); }
+.footer-copy .by { color: var(--mt); }
+.footer-copy a { color: var(--volt); font-weight: 600; }
+.footer-copy a:hover { text-decoration: underline; }
+.footer-legal { display: flex; gap: 24px; }
+.footer-legal a { font-size: 12px; color: var(--mt2); transition: color .2s; }
+.footer-legal a:hover { color: var(--volt); }
+
+/* ═══════════════════════════════════════════════
+   MOBILE NAV
+═══════════════════════════════════════════════ */
+.mobile-nav {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(13,19,23,.98); backdrop-filter: blur(20px);
+  flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a { font-family: var(--ff-display); font-size: 28px; font-weight: 700; color: var(--mt); transition: color .2s; }
+.mobile-nav a:hover { color: var(--volt); }
+.mobile-close { position: absolute; top: 28px; right: 28px; width: 44px; height: 44px; border-radius: 50%; background: var(--sur); display: flex; align-items: center; justify-content: center; color: var(--tx); cursor: pointer; }
+
+/* ═══════════════════════════════════════════════
+   REVEAL ANIMATIONS
+═══════════════════════════════════════════════ */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: .08s; }
+.reveal-delay-2 { transition-delay: .16s; }
+.reveal-delay-3 { transition-delay: .24s; }
+.reveal-delay-4 { transition-delay: .32s; }
+.reveal-delay-5 { transition-delay: .4s; }
+.reveal-delay-6 { transition-delay: .48s; }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .hero-sub, .hero-actions, .features-header { margin-left: auto; margin-right: auto; }
+  .hero-actions { align-items: center; }
+  .hero-visual { margin-top: 40px; }
+  .phone-2 { display: none; }
+  .feature-grid { grid-template-columns: 1fr 1fr; }
+  .audience-grid { grid-template-columns: 1fr 1fr; }
+  .how-grid { grid-template-columns: 1fr; }
+  .how-arrow { display: none; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+  .section { padding: 70px 0; }
+  .feature-grid, .audience-grid { grid-template-columns: 1fr; }
+  .strip-inner { flex-wrap: wrap; gap: 24px; }
+  .strip-item + .strip-item { border-left: none; padding-left: 0; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .footer-top { grid-template-columns: 1fr; gap: 36px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .screens-row { flex-direction: column; align-items: center; }
+  .screen-frame.mid { order: -1; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <div class="nav-logo-mark">T</div>
+      <div class="nav-logo-name">Tactica</div>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#screens">App</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="https://app.tactica.com.ng" target="_blank" class="nav-launch">
+        Launch Web App
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-close" onclick="toggleMobile()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </div>
+  <a href="#features" onclick="toggleMobile()">Features</a>
+  <a href="#how" onclick="toggleMobile()">How It Works</a>
+  <a href="#screens" onclick="toggleMobile()">App</a>
+  <a href="#faq" onclick="toggleMobile()">FAQ</a>
+  <a href="https://app.tactica.com.ng" target="_blank" onclick="toggleMobile()" style="color:var(--volt)">Launch Web App →</a>
+</div>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pitch"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow reveal">
+        <div class="dot"></div>
+        <span class="label">Football Intelligence Engine</span>
+      </div>
+      <h1 class="hero-title reveal reveal-delay-1">
+        The AI brain<br/>behind every<br/><em>great</em> <span class="cy">formation</span>.
+      </h1>
+      <p class="hero-sub reveal reveal-delay-2">
+        Tactica analyses real match data, scores every formation through a trained ML model, and tells you exactly how to line up — for any club, any nation, completely free.
+      </p>
+      <div class="hero-actions reveal reveal-delay-3">
+        <div class="hero-launch-row">
+          <a href="https://app.tactica.com.ng" target="_blank" class="btn btn-volt">
+            Launch Web App
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="store-row">
+          <a href="#" class="store-btn">
+            <svg class="ic" viewBox="0 0 24 24" fill="#fff"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.11 2.78.78 3.6 1.94-3.66 2.17-2.78 6.94.5 8.32-.43.92-.97 1.84-1.75 2.75M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.32 2.45-2.27 4.27-3.74 4.25"/></svg>
+            <div class="tx"><span class="small">Download on the</span><span class="big">App Store</span></div>
+          </a>
+          <a href="#" class="store-btn">
+            <svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M3 3.5v17a.5.5 0 0 0 .81.39l9.42-8a.5.5 0 0 0 0-.78l-9.42-8A.5.5 0 0 0 3 3.5z" fill="#00E5FF"/><path d="M16.5 8.5l-3.5 3 3.5 3 3.5-2.4a.7.7 0 0 0 0-1.2z" fill="#CCFF00"/></svg>
+            <div class="tx"><span class="small">Get it on</span><span class="big">Google Play</span></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- phone mockup -->
+    <div class="hero-visual reveal reveal-delay-2">
+      <div class="phone phone-2"></div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="ph-time">9:41</div>
+          <div class="ph-head">Pre-Match<br/>Analysis</div>
+          <div class="ph-sub">Arsenal vs Bayern Munich · Champions League</div>
+          <div class="ph-card">
+            <div class="ph-row"><span style="font-size:10px;color:var(--mt)">Recommended Formation</span><span class="ph-pill volt">AI Pick</span></div>
+            <div class="ph-stat-big">4-3-3</div>
+            <div class="ph-label">68.2% Win Probability</div>
+            <div class="ph-bar-track"><div class="ph-bar-fill" style="width:68%"></div></div>
+          </div>
+          <div class="ph-card">
+            <div class="ph-row"><span style="font-size:10px;color:var(--mt);font-weight:700">Starting XI</span><span class="ph-pill cyan">11/11</span></div>
+            <div class="ph-player"><span class="ph-pos">GK</span><span class="ph-pname">D. Raya</span><span class="ph-pstat">87</span></div>
+            <div class="ph-player"><span class="ph-pos">RW</span><span class="ph-pname">B. Saka</span><span class="ph-pstat">92</span></div>
+            <div class="ph-player"><span class="ph-pos">CM</span><span class="ph-pname">M. Ødegaard</span><span class="ph-pstat">91</span></div>
+          </div>
+          <div class="ph-nav">
+            <div class="ph-nav-item active"><span class="ph-nav-dot">🏠</span>Home</div>
+            <div class="ph-nav-item"><span class="ph-nav-dot">📊</span>Scout</div>
+            <div class="ph-nav-item"><span class="ph-nav-dot">💬</span>Chat</div>
+            <div class="ph-nav-item"><span class="ph-nav-dot">👤</span>Profile</div>
+          </div>
+        </div>
+      </div>
+      <div class="float-badge b1"><span class="ic">⚡</span> 17 Formations Scored</div>
+      <div class="float-badge b2"><span class="ic">🌍</span> 48 WC2026 Nations</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ STRIP ═══════════════════════ -->
+<div id="strip">
+  <div class="strip-inner">
+    <div class="strip-item"><div class="strip-num">130+</div><div class="strip-label">European clubs covered</div></div>
+    <div class="strip-item"><div class="strip-num cy">48</div><div class="strip-label">World Cup 2026 nations</div></div>
+    <div class="strip-item"><div class="strip-num">17</div><div class="strip-label">Formations scored by AI</div></div>
+    <div class="strip-item"><div class="strip-num cy">100%</div><div class="strip-label">Free, forever</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ FEATURES ═══════════════════════ -->
+<section id="features" class="section">
+  <div class="container">
+    <div class="features-header">
+      <span class="label reveal">Core Engine</span>
+      <div class="divider reveal"></div>
+      <h2 class="title reveal reveal-delay-1">Six modules.<br/>One <em>tactical brain</em>.</h2>
+      <p class="subtitle reveal reveal-delay-2" style="margin-top:16px">Every feature is powered by real match data, a trained machine learning model, and an AI that understands football the way a coach does.</p>
+    </div>
+    <div class="feature-grid">
+
+      <div class="feature-card reveal">
+        <div class="feature-icon volt">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="feature-num">01</div>
+        <div class="feature-title">Auto-Tactics</div>
+        <div class="feature-desc">Fetches each team's last 5 matches, extracts the formations they actually played, computes live attack/defence ratings, and recommends the optimal game plan.</div>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon cyan">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <div class="feature-num">02</div>
+        <div class="feature-title">Opponent Analysis</div>
+        <div class="feature-desc">Compare two teams head-to-head — attack vs defence ratings, recent form, and an automated scout report with plain-language tactical guidance.</div>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon volt">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="1.8" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div class="feature-num">03</div>
+        <div class="feature-title">Coach's Sandbox</div>
+        <div class="feature-desc">Pick your own formation, draft your own Starting XI from the real squad, and get an AI win-probability estimate — your tactics, validated.</div>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon cyan">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M2 12a10 10 0 0 1 10-10"/></svg>
+        </div>
+        <div class="feature-num">04</div>
+        <div class="feature-title">Live Simulator</div>
+        <div class="feature-desc">Set the match minute and scoreline. The AI returns situation-specific advice — protect a lead, chase a game, or hold your shape.</div>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-4">
+        <div class="feature-icon volt">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="feature-num">05</div>
+        <div class="feature-title">AI Tactical Chat</div>
+        <div class="feature-desc">A live-aware assistant manager. Sync the live score and ask anything — the AI knows your squad, the match context, and responds like an elite coach.</div>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-5">
+        <div class="feature-icon cyan">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="1.8" stroke-linecap="round"><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <div class="feature-num">06</div>
+        <div class="feature-title">World Cup 2026</div>
+        <div class="feature-desc">All 48 qualified nations. Player scores combine club form, match ratings, caps, and age — weighted by league quality — for true international-level analysis.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ HOW IT WORKS ═══════════════════════ -->
+<section id="how" class="section">
+  <div class="container">
+    <div class="features-header center">
+      <span class="label reveal">The Process</span>
+      <div class="divider reveal" style="margin-left:auto;margin-right:auto"></div>
+      <h2 class="title reveal reveal-delay-1">From kickoff thinking<br/>to <em>tactical clarity</em> — in seconds.</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-step reveal">
+        <div class="how-step-num">01</div>
+        <div class="how-step-title">Select Your Teams</div>
+        <div class="how-step-desc">Choose your team and your opponent — any of 130+ European clubs or all 48 World Cup 2026 nations.</div>
+        <div class="how-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0a1000" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="how-step reveal reveal-delay-1">
+        <div class="how-step-num">02</div>
+        <div class="how-step-title">AI Analyses Everything</div>
+        <div class="how-step-desc">Tactica pulls last-5 match data, calculates live ratings, and scores all 17 formations through the ML model.</div>
+        <div class="how-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0a1000" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="how-step reveal reveal-delay-2">
+        <div class="how-step-num">03</div>
+        <div class="how-step-title">Get Your Game Plan</div>
+        <div class="how-step-desc">Receive the recommended formation, Starting XI, win probability, and a tactical scout report — ready to use.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SCREENSHOTS ═══════════════════════ -->
+<section id="screens" class="section">
+  <div class="container">
+    <div class="screens-header">
+      <span class="label reveal">Inside the App</span>
+      <div class="divider reveal" style="margin-left:auto;margin-right:auto"></div>
+      <h2 class="title reveal reveal-delay-1">Designed for <span class="cy">clarity</span>.<br/>Built for <em>speed</em>.</h2>
+    </div>
+    <div class="screens-row">
+
+      <!-- Screen 1: Reset Password -->
+      <div class="screen-frame reveal">
+        <div class="scr-pad">
+          <div class="scr-time">9:41</div>
+          <div class="scr-lock">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="scr-title">Secure Account Access</div>
+          <div class="scr-desc">Every Tactica account is protected with secure email verification and password reset flows.</div>
+          <div class="scr-input">
+            <div class="lbl">Email Address</div>
+            <div class="val">coach@example.com</div>
+          </div>
+          <div class="scr-note">
+            <span style="font-size:14px">⏱️</span>
+            <div class="scr-note-tx">A 6-digit code is sent to your email. It expires in 10 minutes for your security.</div>
+          </div>
+          <div class="scr-cta">Send Reset Code</div>
+          <div class="scr-link">Remembered it? <b>Sign In</b></div>
+        </div>
+      </div>
+
+      <!-- Screen 2: Tactics (middle, larger) -->
+      <div class="screen-frame mid reveal reveal-delay-1">
+        <div class="scr-pad">
+          <div class="scr-time">9:41</div>
+          <div style="font-family:var(--ff-display);font-size:24px;font-weight:900;margin:18px 0 4px;">Auto-Tactics</div>
+          <div style="font-size:10px;color:var(--mt);margin-bottom:16px;">Arsenal vs Bayern Munich · UCL</div>
+          <div class="scr-formation-badge">
+            <div class="ff">4-3-3</div>
+            <div class="fl">Recommended Formation · 68.2% Win Probability</div>
+          </div>
+          <div style="font-size:9px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Formation Ranking</div>
+          <div class="scr-bars">
+            <div class="scr-bar-row"><div class="scr-bar-label">4-3-3</div><div class="scr-bar-track"><div class="scr-bar-fill" style="width:92%"></div></div><div class="scr-bar-pct">68%</div></div>
+            <div class="scr-bar-row"><div class="scr-bar-label">4-2-3-1</div><div class="scr-bar-track"><div class="scr-bar-fill" style="width:80%"></div></div><div class="scr-bar-pct">59%</div></div>
+            <div class="scr-bar-row"><div class="scr-bar-label">3-4-3</div><div class="scr-bar-track"><div class="scr-bar-fill" style="width:71%"></div></div><div class="scr-bar-pct">52%</div></div>
+            <div class="scr-bar-row"><div class="scr-bar-label">4-4-2</div><div class="scr-bar-track"><div class="scr-bar-fill" style="width:64%"></div></div><div class="scr-bar-pct">47%</div></div>
+          </div>
+          <div style="font-size:9px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Starting XI</div>
+          <div class="ph-player"><span class="ph-pos">GK</span><span class="ph-pname">D. Raya</span><span class="ph-pstat">87</span></div>
+          <div class="ph-player"><span class="ph-pos">RW</span><span class="ph-pname">B. Saka</span><span class="ph-pstat">92</span></div>
+          <div class="ph-player"><span class="ph-pos">ST</span><span class="ph-pname">K. Havertz</span><span class="ph-pstat">84</span></div>
+        </div>
+      </div>
+
+      <!-- Screen 3: Profile -->
+      <div class="screen-frame reveal reveal-delay-2">
+        <div class="scr-pad">
+          <div class="scr-time">4:55</div>
+          <div class="scr-avatar">⚽</div>
+          <div class="scr-name">Coach Adebayo</div>
+          <div class="scr-email">coach@example.com</div>
+          <span class="scr-team-badge">Manchester Utd</span>
+          <div class="scr-stats-row">
+            <div class="scr-stat"><div class="num">3</div><div class="lbl2">Analyses</div></div>
+            <div class="scr-stat"><div class="num">5</div><div class="lbl2">Sessions</div></div>
+            <div class="scr-stat"><div class="num">3</div><div class="lbl2">Formations</div></div>
+          </div>
+          <div style="font-size:9px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Account</div>
+          <div class="scr-menu-item"><div class="scr-menu-ic">👤</div><div class="scr-menu-tx"><div class="scr-menu-tt">Edit Profile</div><div class="scr-menu-ss">Name, photo, username</div></div><span style="color:var(--mt2)">›</span></div>
+          <div class="scr-menu-item"><div class="scr-menu-ic">⭐</div><div class="scr-menu-tx"><div class="scr-menu-tt">Favourite Team</div><div class="scr-menu-ss">Manchester Utd · EPL</div></div><span style="color:var(--mt2)">›</span></div>
+          <div class="scr-menu-item"><div class="scr-menu-ic">🔒</div><div class="scr-menu-tx"><div class="scr-menu-tt">Change Password</div><div class="scr-menu-ss">Security settings</div></div><span style="color:var(--mt2)">›</span></div>
+          <div class="scr-menu-item" style="border-bottom:none;"><div class="scr-menu-ic">🔔</div><div class="scr-menu-tx"><div class="scr-menu-tt">Notifications</div><div class="scr-menu-ss">Push alerts</div></div><span style="color:var(--volt)">●</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ WHO IT'S FOR ═══════════════════════ -->
+<section id="audience" class="section">
+  <div class="container">
+    <div class="features-header center">
+      <span class="label reveal">Who Uses Tactica</span>
+      <div class="divider reveal" style="margin-left:auto;margin-right:auto"></div>
+      <h2 class="title reveal reveal-delay-1">Built for everyone<br/>who <em>thinks in formations</em>.</h2>
+    </div>
+    <div class="audience-grid">
+      <div class="aud-card reveal">
+        <div class="aud-icon">🧑‍🏫</div>
+        <div class="aud-title">Grassroots Coaches</div>
+        <div class="aud-desc">Pre-match game plans backed by real data — no analyst required.</div>
+      </div>
+      <div class="aud-card reveal reveal-delay-1">
+        <div class="aud-icon">🏟️</div>
+        <div class="aud-title">Academy Directors</div>
+        <div class="aud-desc">Teach tactical concepts with live data instead of static diagrams.</div>
+      </div>
+      <div class="aud-card reveal reveal-delay-2">
+        <div class="aud-icon">📋</div>
+        <div class="aud-title">Semi-Pro Managers</div>
+        <div class="aud-desc">Prepare for specific opponents with AI-backed formation plans.</div>
+      </div>
+      <div class="aud-card reveal reveal-delay-3">
+        <div class="aud-icon">📊</div>
+        <div class="aud-title">Football Analysts</div>
+        <div class="aud-desc">Validate tactical ideas against a trained ML model in seconds.</div>
+      </div>
+      <div class="aud-card reveal reveal-delay-4">
+        <div class="aud-icon">🌍</div>
+        <div class="aud-title">National Team Staff</div>
+        <div class="aud-desc">World Cup 2026 module rates players by club form, caps, and age.</div>
+      </div>
+      <div class="aud-card reveal reveal-delay-5">
+        <div class="aud-icon">📰</div>
+        <div class="aud-title">Journalists</div>
+        <div class="aud-desc">Generate tactical context for match previews in seconds.</div>
+      </div>
+      <div class="aud-card reveal reveal-delay-6">
+        <div class="aud-icon">🎮</div>
+        <div class="aud-title">FIFA & FM Players</div>
+        <div class="aud-desc">Make smarter squad and formation decisions in-game.</div>
+      </div>
+      <div class="aud-card reveal reveal-delay-6">
+        <div class="aud-icon">⚽</div>
+        <div class="aud-title">Football Fans</div>
+        <div class="aud-desc">Understand why formations win — before kickoff.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FAQ ═══════════════════════ -->
+<section id="faq" class="section">
+  <div class="container">
+    <div class="features-header center">
+      <span class="label reveal">Questions</span>
+      <div class="divider reveal" style="margin-left:auto;margin-right:auto"></div>
+      <h2 class="title reveal reveal-delay-1">Frequently asked.</h2>
+    </div>
+    <div class="faq-wrap">
+
+      <div class="faq-item open reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Is Tactica really free?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — Tactica is completely free to use. Every module, every formation prediction, every AI chat conversation, and the full World Cup 2026 database are available at no cost.</div></div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-1">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How does the AI know which formation is best?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Tactica fetches each team's last 5 completed matches, extracts the actual formations played, and calculates live Attack and Defence ratings from real goals scored and conceded. These ratings are fed into a trained Random Forest machine learning model that scores all 17 formations and returns the one with the highest win probability.</div></div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-2">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Which teams and competitions are covered?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Over 130 clubs across the Premier League, La Liga, Bundesliga, Serie A, Ligue 1, Eredivisie, Primeira Liga, and more — plus all 48 nations competing at the 2026 FIFA World Cup. Live match data covers every major competition including the Champions League, Europa League, and domestic cups.</div></div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-3">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Do I need to create an account?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">An account lets you save your favourite team, track past analyses, and pick up your AI chat conversations across sessions. You can explore most features without signing up, but an account unlocks the full personalised experience.</div></div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-4">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Does the AI chat actually understand my squad?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. The AI assistant manager is given your full squad roster, current live match data when synced, and the entire conversation history. It responds with real player names, real positions, and tactical advice grounded in your specific situation — not generic responses.</div></div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-5">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Is the web app the same as the mobile app?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — the web app at app.tactica.com.ng has every feature available in the iOS and Android apps. Use whichever is most convenient; your account syncs across both.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CTA ═══════════════════════ -->
+<section id="cta" class="section">
+  <div class="container">
+    <div class="cta-inner">
+      <span class="label reveal">Get Started</span>
+      <div class="divider reveal" style="margin-left:auto;margin-right:auto"></div>
+      <h2 class="cta-title reveal reveal-delay-1">Your next formation<br/>is one tap <em>away</em>.</h2>
+      <p class="cta-sub reveal reveal-delay-2">Open Tactica in your browser right now, or download the app for the full experience on the go.</p>
+      <div class="cta-actions reveal reveal-delay-3">
+        <a href="https://app.tactica.com.ng" target="_blank" class="btn btn-volt">
+          Launch Web App
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div class="store-row">
+          <a href="#" class="store-btn">
+            <svg class="ic" viewBox="0 0 24 24" fill="#fff"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.11 2.78.78 3.6 1.94-3.66 2.17-2.78 6.94.5 8.32-.43.92-.97 1.84-1.75 2.75M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.32 2.45-2.27 4.27-3.74 4.25"/></svg>
+            <div class="tx"><span class="small">Download on the</span><span class="big">App Store</span></div>
+          </a>
+          <a href="#" class="store-btn">
+            <svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M3 3.5v17a.5.5 0 0 0 .81.39l9.42-8a.5.5 0 0 0 0-.78l-9.42-8A.5.5 0 0 0 3 3.5z" fill="#00E5FF"/><path d="M16.5 8.5l-3.5 3 3.5 3 3.5-2.4a.7.7 0 0 0 0-1.2z" fill="#CCFF00"/></svg>
+            <div class="tx"><span class="small">Get it on</span><span class="big">Google Play</span></div>
+          </a>
+        </div>
+        <span class="cta-free reveal reveal-delay-4">Free forever · No credit card required</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer id="footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-row">
+        <div class="footer-logo-mark">T</div>
+        <div class="footer-logo-name">Tactica</div>
+      </div>
+      <p class="footer-desc">AI-powered tactical intelligence for football. Formation prediction, Starting XI selection, live match analysis, and AI tactical chat — free, for every coach.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram" title="Coming soon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="X / Twitter" title="Coming soon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" title="Coming soon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#how">How It Works</a>
+        <a href="#screens">App Preview</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Get Started</div>
+      <div class="footer-links">
+        <a href="https://app.tactica.com.ng" target="_blank">Launch Web App</a>
+        <a href="#">App Store</a>
+        <a href="#">Google Play</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">
+      <span class="by">© 2026 Tactica.</span> A product by <a href="https://lineafootball.com" target="_blank">Linea Football</a>
+    </div>
+    <div class="footer-legal">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+function toggleMobile() {
+  document.getElementById('mobileNav').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('mobileNav').classList.contains('open') ? 'hidden' : '';
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>

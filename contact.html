@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Get in touch with the Tactica team — questions, partnerships, or feedback on the football intelligence engine."/>
+<meta name="theme-color" content="#0D1317"/>
+<title>Contact — Tactica</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+
+<style>
+/* ═══ shared tokens / base / nav / footer (same as index.html) ═══ */
+:root {
+  --bg:    #0D1317;
+  --bg2:   #0A0F13;
+  --sur:   #1A242B;
+  --sur2:  #223040;
+  --bd:    #2A3B47;
+  --bd2:   #34495a;
+  --volt:  #CCFF00;
+  --volt2: #E8FF66;
+  --cyan:  #00E5FF;
+  --cyan2: #6FF0FF;
+  --tx:    #FFFFFF;
+  --mt:    #8E9BAE;
+  --mt2:   #5C6B7C;
+  --grn:   #00E676;
+  --red:   #FF4757;
+  --amber: #FFB830;
+
+  --ff-display: 'Playfair Display', Georgia, serif;
+  --ff-body:    'DM Sans', sans-serif;
+  --ff-mono:    'Space Mono', monospace;
+
+  --nav-h: 76px;
+  --max:   1280px;
+  --r:     16px;
+  --r2:    24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: var(--ff-body);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; outline: none; background: none; font-family: inherit; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bd2); border-radius: 3px; }
+
+.container { max-width: var(--max); margin: 0 auto; padding: 0 40px; }
+.section { padding: 110px 0; }
+.section--sm { padding: 70px 0; }
+
+.label {
+  font-family: var(--ff-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--volt);
+}
+.title {
+  font-family: var(--ff-display);
+  font-size: clamp(34px, 4.8vw, 58px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -.01em;
+}
+.title em { font-style: italic; color: var(--volt); font-weight: 700; }
+.title .cy { color: var(--cyan); }
+.subtitle { font-size: 17px; font-weight: 400; color: var(--mt); line-height: 1.75; max-width: 540px; }
+
+.divider { width: 48px; height: 2px; background: var(--volt); margin: 22px 0; border-radius: 2px; }
+.center { text-align: center; margin-left: auto; margin-right: auto; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: .02em;
+  transition: all .25s ease;
+  cursor: pointer;
+  font-family: var(--ff-body);
+}
+.btn-volt {
+  background: var(--volt);
+  color: #0a1000;
+  box-shadow: 0 8px 32px rgba(204,255,0,.22);
+}
+.btn-volt:hover { background: var(--volt2); box-shadow: 0 12px 40px rgba(204,255,0,.35); transform: translateY(-2px); }
+
+/* nav */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h); z-index: 100;
+  transition: background .3s, border-color .3s;
+}
+#nav.scrolled { background: rgba(13,19,23,.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--bd); }
+.nav-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 40px;
+  height: 100%; display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo-mark {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--volt) 0%, var(--cyan) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-display); font-weight: 900; font-size: 18px; color: #060A0C;
+}
+.nav-logo-name { font-family: var(--ff-display); font-size: 22px; font-weight: 900; color: var(--tx); letter-spacing: -.01em; }
+.nav-links { display: flex; align-items: center; gap: 36px; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--mt); transition: color .2s; }
+.nav-links a:hover { color: var(--tx); }
+.nav-links a.active { color: var(--volt); }
+.nav-cta { display: flex; align-items: center; gap: 14px; }
+.nav-launch {
+  padding: 10px 22px; background: var(--volt); color: #0a1000;
+  border-radius: 10px; font-size: 13px; font-weight: 700; transition: all .2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-launch:hover { background: var(--volt2); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 24px; height: 1.5px; background: var(--tx); border-radius: 2px; transition: all .3s; }
+
+.mobile-nav {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(13,19,23,.98); backdrop-filter: blur(20px);
+  flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a { font-family: var(--ff-display); font-size: 28px; font-weight: 700; color: var(--mt); transition: color .2s; }
+.mobile-nav a:hover { color: var(--volt); }
+.mobile-close { position: absolute; top: 28px; right: 28px; width: 44px; height: 44px; border-radius: 50%; background: var(--sur); display: flex; align-items: center; justify-content: center; color: var(--tx); cursor: pointer; }
+
+/* footer */
+#footer { background: var(--bg2); border-top: 1px solid var(--bd); padding: 60px 0 32px; }
+.footer-top {
+  max-width: var(--max); margin: 0 auto; padding: 0 40px;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 48px;
+}
+.footer-brand-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.footer-logo-mark {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--volt) 0%, var(--cyan) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-display); font-weight: 900; font-size: 17px; color: #060A0C;
+}
+.footer-logo-name { font-family: var(--ff-display); font-size: 24px; font-weight: 900; }
+.footer-desc { font-size: 14px; color: var(--mt2); line-height: 1.75; max-width: 280px; margin-bottom: 20px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a {
+  width: 36px; height: 36px; border-radius: 8px; background: var(--sur); border: 1px solid var(--bd);
+  display: flex; align-items: center; justify-content: center; color: var(--mt2); transition: all .2s;
+}
+.footer-social a:hover { border-color: var(--volt); color: var(--volt); }
+.footer-col-title { font-size: 12px; font-weight: 700; font-family: var(--ff-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--mt2); margin-bottom: 20px; }
+.footer-links { display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 14px; color: var(--mt2); transition: color .2s; }
+.footer-links a:hover { color: var(--volt); }
+.footer-bottom {
+  max-width: var(--max); margin: 0 auto; padding: 28px 40px 0; border-top: 1px solid var(--bd);
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+}
+.footer-copy { font-size: 12px; color: var(--mt2); }
+.footer-copy .by { color: var(--mt); }
+.footer-copy a { color: var(--volt); font-weight: 600; }
+.footer-copy a:hover { text-decoration: underline; }
+.footer-legal { display: flex; gap: 24px; }
+.footer-legal a { font-size: 12px; color: var(--mt2); transition: color .2s; }
+.footer-legal a:hover { color: var(--volt); }
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: .08s; }
+.reveal-delay-2 { transition-delay: .16s; }
+.reveal-delay-3 { transition-delay: .24s; }
+
+/* ═══ page-specific: inner page hero ═══ */
+#page-hero {
+  padding-top: calc(var(--nav-h) + 70px);
+  padding-bottom: 60px;
+  position: relative; overflow: hidden;
+}
+.page-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 700px 500px at 85% 0%, rgba(204,255,0,.06) 0%, transparent 60%),
+    linear-gradient(170deg, #0D1317 0%, #0A1014 100%);
+}
+
+/* ═══ contact page specific ═══ */
+.contact-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 70px; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 28px; }
+.contact-item { display: flex; gap: 16px; align-items: flex-start; }
+.contact-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(204,255,0,.08); border: 1px solid rgba(204,255,0,.18);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.contact-item-label { font-size: 11px; font-weight: 700; color: var(--mt2); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; font-family: var(--ff-mono); }
+.contact-item-val { font-size: 15px; color: var(--tx); font-weight: 500; }
+.contact-item-sub { font-size: 13px; color: var(--mt); margin-top: 2px; }
+
+.contact-form-card {
+  background: var(--sur); border: 1px solid var(--bd); border-radius: var(--r2);
+  padding: 40px;
+}
+.form-row { display: flex; gap: 14px; }
+.form-field {
+  flex: 1; width: 100%;
+  background: var(--bg2); border: 1px solid var(--bd);
+  border-radius: 10px; padding: 14px 16px;
+  color: var(--tx); font-size: 14px; font-weight: 400;
+  font-family: var(--ff-body);
+  transition: border-color .2s; margin-bottom: 14px;
+}
+.form-field::placeholder { color: var(--mt2); }
+.form-field:focus { border-color: var(--volt); outline: none; }
+.form-select {
+  width: 100%;
+  background: var(--bg2); border: 1px solid var(--bd);
+  border-radius: 10px; padding: 14px 16px;
+  color: var(--mt); font-size: 14px; font-weight: 400;
+  font-family: var(--ff-body);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238E9BAE' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center;
+  cursor: pointer; margin-bottom: 14px;
+  transition: border-color .2s;
+}
+.form-select:focus { border-color: var(--volt); outline: none; }
+.form-select option { background: var(--sur); color: var(--tx); }
+textarea.form-field { min-height: 130px; resize: vertical; line-height: 1.6; }
+.form-submit {
+  width: 100%; height: 52px;
+  background: var(--volt); color: #0a1000;
+  border-radius: 10px; font-size: 15px; font-weight: 700;
+  letter-spacing: .02em; transition: all .2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.form-submit:hover { background: var(--volt2); box-shadow: 0 8px 28px rgba(204,255,0,.3); }
+.form-note { font-size: 12px; color: var(--mt2); margin-top: 14px; text-align: center; }
+
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+  .section { padding: 70px 0; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .footer-top { grid-template-columns: 1fr; gap: 36px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .form-row { flex-direction: column; }
+  .contact-form-card { padding: 28px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">T</div>
+      <div class="nav-logo-name">Tactica</div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how">How It Works</a>
+      <a href="index.html#screens">App</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="https://app.tactica.com.ng" target="_blank" class="nav-launch">
+        Launch Web App
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-close" onclick="toggleMobile()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </div>
+  <a href="index.html#features" onclick="toggleMobile()">Features</a>
+  <a href="index.html#how" onclick="toggleMobile()">How It Works</a>
+  <a href="index.html#screens" onclick="toggleMobile()">App</a>
+  <a href="index.html#faq" onclick="toggleMobile()">FAQ</a>
+  <a href="https://app.tactica.com.ng" target="_blank" onclick="toggleMobile()" style="color:var(--volt)">Launch Web App →</a>
+</div>
+
+<!-- ═══════════════════════ PAGE HERO ═══════════════════════ -->
+<section id="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <span class="label reveal">Get In Touch</span>
+    <div class="divider reveal"></div>
+    <h1 class="title reveal reveal-delay-1">Let's talk<br/><em>tactics.</em></h1>
+    <p class="subtitle reveal reveal-delay-2" style="margin-top:18px">
+      Questions about the engine, partnership ideas, or feedback on a prediction — we read every message.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CONTACT CONTENT ═══════════════════════ -->
+<section class="section--sm">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div class="contact-info">
+        <div class="contact-item reveal">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="1.5" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-val">hello@lineafootball.com</div>
+            <div class="contact-item-sub">General questions, feedback, bug reports</div>
+          </div>
+        </div>
+
+        <div class="contact-item reveal reveal-delay-1">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div>
+            <div class="contact-item-label">In-App Support</div>
+            <div class="contact-item-val">AI Tactical Chat</div>
+            <div class="contact-item-sub">Fastest way to get help inside the app</div>
+          </div>
+        </div>
+
+        <div class="contact-item reveal reveal-delay-2">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="1.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.14-1.14a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="contact-item-label">Partnerships</div>
+            <div class="contact-item-val">hello@lineafootball.com</div>
+            <div class="contact-item-sub">Clubs, academies, and data partners</div>
+          </div>
+        </div>
+
+        <div class="contact-item reveal reveal-delay-3">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-item-label">Headquarters</div>
+            <div class="contact-item-val">Lagos, Nigeria</div>
+            <div class="contact-item-sub">A Linea Football company</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="contact-form-card">
+          <form onsubmit="handleContact(event)" id="contactForm">
+            <div class="form-row">
+              <input type="text" class="form-field" placeholder="Your name" required/>
+              <input type="email" class="form-field" placeholder="Email address" required/>
+            </div>
+            <select class="form-select" required>
+              <option value="" disabled selected>What is this about?</option>
+              <option>Product Question</option>
+              <option>Bug Report</option>
+              <option>Partnership Enquiry</option>
+              <option>Media & Press</option>
+              <option>General Feedback</option>
+            </select>
+            <textarea class="form-field" placeholder="Your message…" required></textarea>
+            <button type="submit" class="form-submit">
+              Send Message
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
+          <p class="form-note">We typically respond within 2–3 business days.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer id="footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-row">
+        <div class="footer-logo-mark">T</div>
+        <div class="footer-logo-name">Tactica</div>
+      </div>
+      <p class="footer-desc">AI-powered tactical intelligence for football. Formation prediction, Starting XI selection, live match analysis, and AI tactical chat — free, for every coach.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram" title="Coming soon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="X / Twitter" title="Coming soon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" title="Coming soon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#how">How It Works</a>
+        <a href="index.html#screens">App Preview</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Get Started</div>
+      <div class="footer-links">
+        <a href="https://app.tactica.com.ng" target="_blank">Launch Web App</a>
+        <a href="#">App Store</a>
+        <a href="#">Google Play</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">
+      <span class="by">© 2026 Tactica.</span> A product by <a href="https://lineafootball.com" target="_blank">Linea Football</a>
+    </div>
+    <div class="footer-legal">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+function toggleMobile() {
+  document.getElementById('mobileNav').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('mobileNav').classList.contains('open') ? 'hidden' : '';
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+function handleContact(e) {
+  e.preventDefault();
+  document.getElementById('contactForm').innerHTML =
+    '<div style="text-align:center;padding:32px 0;color:#00E676;font-size:15px;font-weight:600">✓ &nbsp; Message sent. We\'ll get back to you shortly.</div>';
+}
+</script>
+</body>
+</html>
