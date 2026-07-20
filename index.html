@@ -145,6 +145,71 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
 .store-btn .tx .small { font-size: 9px; color: var(--mt); letter-spacing: .05em; text-transform: uppercase; }
 .store-btn .tx .big { font-size: 14px; font-weight: 700; color: var(--tx); }
 
+/* APK Download Button */
+.apk-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 20px;
+  background: var(--sur);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  transition: all .2s;
+  text-decoration: none;
+}
+.apk-btn:hover {
+  border-color: var(--volt);
+  background: rgba(204, 255, 0, 0.08);
+  transform: translateY(-2px);
+}
+.apk-btn .ic { width: 26px; height: 26px; flex-shrink: 0; }
+.apk-btn:hover .ic svg { fill: var(--volt); }
+.apk-btn .tx { display: flex; flex-direction: column; line-height: 1.25; }
+.apk-btn .tx .small { font-size: 9px; color: var(--mt); letter-spacing: .05em; text-transform: uppercase; }
+.apk-btn .tx .big { font-size: 14px; font-weight: 700; color: var(--tx); }
+
+/* Disabled App Store Button */
+.store-btn-disabled {
+  position: relative;
+  opacity: 0.5;
+  cursor: not-allowed;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 20px;
+  background: rgba(26, 36, 43, 0.5);
+  border: 1px solid rgba(42, 59, 71, 0.5);
+  border-radius: 12px;
+}
+.store-btn-disabled .coming-soon-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 9px;
+  font-weight: 700;
+  background: var(--sur);
+  color: var(--volt);
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--bd);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.05em;
+}
+.store-btn-disabled .ic { width: 26px; height: 26px; flex-shrink: 0; }
+.store-btn-disabled .tx { display: flex; flex-direction: column; line-height: 1.25; }
+.store-btn-disabled .tx .small { font-size: 9px; color: var(--mt2); letter-spacing: .05em; text-transform: uppercase; }
+.store-btn-disabled .tx .big { font-size: 14px; font-weight: 700; color: var(--mt2); }
+
+/* UX Tip Text */
+.ux-tip {
+  font-size: 12px;
+  color: var(--mt2);
+  margin-top: 10px;
+  line-height: 1.5;
+}
+.ux-tip span {
+  color: var(--mt);
+  font-weight: 500;
+}
+
 /* ═══════════════════════════════════════════════
    NAV
 ═══════════════════════════════════════════════ */
@@ -596,15 +661,27 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
           </a>
         </div>
         <div class="store-row">
-          <a href="#" class="store-btn">
-            <svg class="ic" viewBox="0 0 24 24" fill="#fff"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.11 2.78.78 3.6 1.94-3.66 2.17-2.78 6.94.5 8.32-.43.92-.97 1.84-1.75 2.75M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.32 2.45-2.27 4.27-3.74 4.25"/></svg>
-            <div class="tx"><span class="small">Download on the</span><span class="big">App Store</span></div>
+          <a href="downloads/tactica.apk" download="Tactica.apk" class="apk-btn">
+            <div class="ic">
+              <svg viewBox="0 0 24 24" fill="#fff"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.37 2.37 0 0 1-.61-1.586V3.4a2.37 2.37 0 0 1 .609-1.586zm11.31 11.313l2.52 2.522-11.45 6.611 8.93-9.133zM3.86 1.09l11.45 6.611-2.52 2.522L3.86 1.09zM16.03 10.91l3.37 1.946a1.27 1.27 0 0 1 0 2.288l-3.37 1.946-2.28-2.09 2.28-2.09z"/></svg>
+            </div>
+            <div class="tx">
+              <span class="small">Direct Download</span>
+              <span class="big">Get Android APK</span>
+            </div>
           </a>
-          <a href="#" class="store-btn">
-            <svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M3 3.5v17a.5.5 0 0 0 .81.39l9.42-8a.5.5 0 0 0 0-.78l-9.42-8A.5.5 0 0 0 3 3.5z" fill="#00E5FF"/><path d="M16.5 8.5l-3.5 3 3.5 3 3.5-2.4a.7.7 0 0 0 0-1.2z" fill="#CCFF00"/></svg>
-            <div class="tx"><span class="small">Get it on</span><span class="big">Google Play</span></div>
-          </a>
+          <div class="store-btn-disabled">
+            <span class="coming-soon-badge">Coming Soon</span>
+            <div class="ic">
+              <svg viewBox="0 0 24 24" fill="#8E9BAE"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.11 2.78.78 3.6 1.94-3.66 2.17-2.78 6.94.5 8.32-.43.92-.97 1.84-1.75 2.75M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.32 2.45-2.27 4.27-3.74 4.25"/></svg>
+            </div>
+            <div class="tx">
+              <span class="small">Download on the</span>
+              <span class="big">App Store</span>
+            </div>
+          </div>
         </div>
+        <p class="ux-tip">* Requires enabling <span>"Install from unknown sources"</span> in your Android settings.</p>
       </div>
     </div>
 
@@ -961,15 +1038,27 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
         <div class="store-row">
-          <a href="#" class="store-btn">
-            <svg class="ic" viewBox="0 0 24 24" fill="#fff"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.11 2.78.78 3.6 1.94-3.66 2.17-2.78 6.94.5 8.32-.43.92-.97 1.84-1.75 2.75M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.32 2.45-2.27 4.27-3.74 4.25"/></svg>
-            <div class="tx"><span class="small">Download on the</span><span class="big">App Store</span></div>
+          <a href="downloads/tactica.apk" download="Tactica.apk" class="apk-btn">
+            <div class="ic">
+              <svg viewBox="0 0 24 24" fill="#fff"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.37 2.37 0 0 1-.61-1.586V3.4a2.37 2.37 0 0 1 .609-1.586zm11.31 11.313l2.52 2.522-11.45 6.611 8.93-9.133zM3.86 1.09l11.45 6.611-2.52 2.522L3.86 1.09zM16.03 10.91l3.37 1.946a1.27 1.27 0 0 1 0 2.288l-3.37 1.946-2.28-2.09 2.28-2.09z"/></svg>
+            </div>
+            <div class="tx">
+              <span class="small">Direct Download</span>
+              <span class="big">Get Android APK</span>
+            </div>
           </a>
-          <a href="#" class="store-btn">
-            <svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M3 3.5v17a.5.5 0 0 0 .81.39l9.42-8a.5.5 0 0 0 0-.78l-9.42-8A.5.5 0 0 0 3 3.5z" fill="#00E5FF"/><path d="M16.5 8.5l-3.5 3 3.5 3 3.5-2.4a.7.7 0 0 0 0-1.2z" fill="#CCFF00"/></svg>
-            <div class="tx"><span class="small">Get it on</span><span class="big">Google Play</span></div>
-          </a>
+          <div class="store-btn-disabled">
+            <span class="coming-soon-badge">Coming Soon</span>
+            <div class="ic">
+              <svg viewBox="0 0 24 24" fill="#8E9BAE"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.11 2.78.78 3.6 1.94-3.66 2.17-2.78 6.94.5 8.32-.43.92-.97 1.84-1.75 2.75M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.32 2.45-2.27 4.27-3.74 4.25"/></svg>
+            </div>
+            <div class="tx">
+              <span class="small">Download on the</span>
+              <span class="big">App Store</span>
+            </div>
+          </div>
         </div>
+        <p class="ux-tip">* Requires enabling <span>"Install from unknown sources"</span> in your Android settings.</p>
         <span class="cta-free reveal reveal-delay-4">Free forever · No credit card required</span>
       </div>
     </div>
