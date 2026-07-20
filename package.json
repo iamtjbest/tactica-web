@@ -1,0 +1,28 @@
+{
+  "name": "tactica-web",
+  "version": "1.0.0",
+  "description": "Tactica — AI-powered tactical intelligence for football. Public website with Vercel Web Analytics.",
+  "scripts": {
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamtjbest/tactica-web.git"
+  },
+  "keywords": [
+    "football",
+    "soccer",
+    "tactics",
+    "analytics",
+    "ai"
+  ],
+  "author": "Tactica Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamtjbest/tactica-web/issues"
+  },
+  "homepage": "https://github.com/iamtjbest/tactica-web#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}

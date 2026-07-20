@@ -11,7 +11,10 @@
   <link rel="icon" type="image/svg+xml" href="icon.svg">
 
   <!-- Vercel Analytics -->
-  <script defer src="https://unpkg.com/@vercel/analytics@1.3.2/dist/script.js"></script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
