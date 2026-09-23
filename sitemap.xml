@@ -6,16 +6,21 @@
     <priority>1.0</priority>
   </url>
 
-  <!--
-    Add one <url> block per additional public page, e.g.:
+  <url>
+    <loc>https://tactica.com.ng/contact.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
 
-    <url>
-      <loc>https://tactica.com.ng/pricing</loc>
-      <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
-    </url>
+  <url>
+    <loc>https://tactica.com.ng/privacy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 
-    Tell me the other page paths on tactica.com.ng (pricing? about?
-    features? academy/roadmap page?) and I'll fill these in for you.
-  -->
+  <url>
+    <loc>https://tactica.com.ng/terms.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>
