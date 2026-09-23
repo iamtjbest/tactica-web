@@ -13,7 +13,7 @@ Tactica analyzes real match data, scores every formation through a trained machi
 - **Coach's Sandbox**: Test your own formations and get win probability estimates
 - **Live Simulator**: Get situation-specific advice based on match minute and scoreline
 - **AI Tactical Chat**: Live-aware assistant manager that knows your squad
-- **World Cup 2026**: Full coverage of all 48 qualified nations
+- **World Cup 2026 & Nations League**: Full coverage of 86 nations — World Cup qualifiers and UEFA Nations League participants
 
 ## Project Structure
 
@@ -37,4 +37,4 @@ Tactica-web/
 
 ## License
 
-Copyright © 2026 Tactica. A product by Linea Football.
+Copyright © 2026 Tactica. A product by Cantera Football.
