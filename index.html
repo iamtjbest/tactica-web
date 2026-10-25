@@ -6,7 +6,27 @@
 <meta name="description" content="Tactica — AI-powered tactical intelligence for football. Formation prediction, Starting XI selection, live match analysis, and AI tactical chat. Free, for every coach."/>
 <meta name="theme-color" content="#0D1317"/>
 <title>Tactica — Football Intelligence Engine</title>
-<link rel="canonical" href="https://tactica.com.ng/"/>
+<link rel="canonical" href="https://tacticaengine.com/"/>
+
+<!-- Open Graph: what WhatsApp, X, LinkedIn and iMessage read when
+     someone shares a link. Without these a share renders as a bare URL. -->
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Tactica"/>
+<meta property="og:url" content="https://tacticaengine.com/"/>
+<meta property="og:title" content="Tactica — Football Intelligence Engine"/>
+<meta property="og:description" content="AI-powered tactical intelligence for football. Formation prediction, Starting XI selection, live match analysis and AI tactical chat. Free, for every coach."/>
+<meta property="og:image" content="https://tacticaengine.com/og.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Tactica — Football Intelligence Engine"/>
+<meta property="og:locale" content="en_US"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@TacticaEngine"/>
+<meta name="twitter:creator" content="@iamtjbest"/>
+<meta name="twitter:title" content="Tactica — Football Intelligence Engine"/>
+<meta name="twitter:description" content="AI-powered tactical intelligence for football. Formation prediction, Starting XI selection, live match analysis and AI tactical chat. Free, for every coach."/>
+<meta name="twitter:image" content="https://tacticaengine.com/og.png"/>
 
 <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="icon.svg">
@@ -364,6 +384,39 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
 #features { background: var(--bg); }
 .features-header { max-width: 640px; margin-bottom: 64px; }
 .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+/* Scout section: two products side by side, collapsing to one on mobile
+   via the same breakpoints the feature grid already uses below. */
+.scout-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.scout-card { padding: 38px 34px; }
+.scout-badge {
+  display: inline-block; font-family: var(--ff-mono); font-size: 10px;
+  font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  padding: 6px 12px; border-radius: 999px; margin-bottom: 18px;
+}
+.scout-badge.volt { color: var(--volt); background: rgba(204,255,0,.08); border: 1px solid rgba(204,255,0,.25); }
+.scout-badge.cyan { color: var(--cyan); background: rgba(0,229,255,.08); border: 1px solid rgba(0,229,255,.25); }
+.scout-name { font-family: var(--ff-display); font-size: 30px; font-weight: 700; margin-bottom: 12px; }
+.scout-desc { color: var(--mt); font-size: 15px; line-height: 1.7; margin-bottom: 22px; }
+.scout-list { list-style: none; margin: 0 0 26px; padding: 0; }
+.scout-list li {
+  position: relative; padding-left: 22px; margin-bottom: 11px;
+  font-size: 14.5px; line-height: 1.6; color: var(--tx);
+}
+.scout-list li::before {
+  content: ""; position: absolute; left: 0; top: 9px;
+  width: 7px; height: 7px; border-radius: 2px; background: var(--volt);
+}
+.scout-card.cyan-accent .scout-list li::before { background: var(--cyan); }
+.scout-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 700; text-decoration: none; color: var(--volt);
+}
+.scout-card.cyan-accent .scout-link { color: var(--cyan); }
+.scout-link:hover { text-decoration: underline; }
+.scout-soon {
+  font-family: var(--ff-mono); font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--mt2);
+}
 .feature-card {
   background: var(--sur); border: 1px solid var(--bd); border-radius: var(--r2);
   padding: 32px 28px; position: relative; overflow: hidden;
@@ -586,6 +639,7 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
   .hero-visual { margin-top: 40px; }
   .phone-2 { display: none; }
   .feature-grid { grid-template-columns: 1fr 1fr; }
+  .scout-grid { grid-template-columns: 1fr 1fr; }
   .audience-grid { grid-template-columns: 1fr 1fr; }
   .how-grid { grid-template-columns: 1fr; }
   .how-arrow { display: none; }
@@ -594,7 +648,7 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
 @media (max-width: 768px) {
   .container { padding: 0 24px; }
   .section { padding: 70px 0; }
-  .feature-grid, .audience-grid { grid-template-columns: 1fr; }
+  .feature-grid, .audience-grid, .scout-grid { grid-template-columns: 1fr; }
   .strip-inner { flex-wrap: wrap; gap: 24px; }
   .strip-item + .strip-item { border-left: none; padding-left: 0; }
   .nav-links, .nav-cta { display: none; }
@@ -611,7 +665,7 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
   "@type": "WebApplication",
   "name": "Tactica",
   "alternateName": "Tactica AI",
-  "url": "https://tactica.com.ng",
+  "url": "https://tacticaengine.com",
   "applicationCategory": "SportsApplication",
   "operatingSystem": "Web, Android",
   "description": "AI-powered tactical intelligence for football. Formation prediction, Starting XI selection, live match analysis, and AI tactical chat, for club and international teams.",
@@ -627,8 +681,58 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
   },
   "sameAs": [
     "https://x.com/TacticaEngine",
-    "https://app.tactica.com.ng"
+    "https://app.tacticaengine.com"
   ]
+}
+</script>
+
+<!-- Scout by Tactica: live scores and player comparison, with the
+     engine's win probability and ATK/DEF ratings inside each match. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Scout by Tactica",
+  "url": "https://scout.tacticaengine.com",
+  "applicationCategory": "SportsApplication",
+  "operatingSystem": "Web, Android, iOS",
+  "description": "Live football scores, lineups, head to head and stats, with Tactica's win probability and attack/defence ratings built into every match. Pre-match numbers are locked before kickoff and never change after the result.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "isPartOf": {
+    "@type": "WebApplication",
+    "name": "Tactica",
+    "url": "https://tacticaengine.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cantera Football"
+  }
+}
+</script>
+
+<!-- Scout Editor: the competition organiser side. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Scout Editor",
+  "url": "https://scouteditor.tacticaengine.com",
+  "applicationCategory": "SportsApplication",
+  "operatingSystem": "Web, Android, iOS",
+  "description": "Run your own competition. Create a tournament, register teams and players, generate fixtures and update scores live. Published to Scout once approved.",
+  "isPartOf": {
+    "@type": "WebApplication",
+    "name": "Tactica",
+    "url": "https://tacticaengine.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cantera Football"
+  }
 }
 </script>
 <script type="application/ld+json">
@@ -637,10 +741,14 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
   "@type": "Organization",
   "name": "Cantera Football",
   "url": "https://cantera-football.vercel.app",
-  "description": "African football infrastructure company. Building Tactica, an AI tactical intelligence engine, alongside a scouting platform and residential academy.",
+  "description": "African football infrastructure company. Building Tactica, an AI tactical intelligence engine, alongside Scout, a livescore and competition platform, and a residential academy.",
   "sameAs": [
     "https://x.com/TacticaEngine",
-    "https://tactica.com.ng"
+    "https://x.com/iamtjbest",
+    "https://tacticaengine.com",
+    "https://app.tacticaengine.com",
+    "https://scout.tacticaengine.com",
+    "https://scouteditor.tacticaengine.com"
   ]
 }
 </script>
@@ -657,12 +765,13 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
     </a>
     <div class="nav-links">
       <a href="#features">Features</a>
+      <a href="#scout">Scout</a>
       <a href="#how">How It Works</a>
       <a href="#screens">App</a>
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-cta">
-      <a href="https://app.tactica.com.ng" target="_blank" class="nav-launch">
+      <a href="https://app.tacticaengine.com" target="_blank" class="nav-launch">
         Launch Web App
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -676,10 +785,11 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </div>
   <a href="#features" onclick="toggleMobile()">Features</a>
+  <a href="#scout" onclick="toggleMobile()">Scout</a>
   <a href="#how" onclick="toggleMobile()">How It Works</a>
   <a href="#screens" onclick="toggleMobile()">App</a>
   <a href="#faq" onclick="toggleMobile()">FAQ</a>
-  <a href="https://app.tactica.com.ng" target="_blank" onclick="toggleMobile()" style="color:var(--volt)">Launch Web App →</a>
+  <a href="https://app.tacticaengine.com" target="_blank" onclick="toggleMobile()" style="color:var(--volt)">Launch Web App →</a>
 </div>
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
@@ -700,7 +810,7 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
       </p>
       <div class="hero-actions reveal reveal-delay-3">
         <div class="hero-launch-row">
-          <a href="https://app.tactica.com.ng" target="_blank" class="btn btn-volt">
+          <a href="https://app.tacticaengine.com" target="_blank" class="btn btn-volt">
             Launch Web App
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
@@ -838,6 +948,55 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
         <div class="feature-num">06</div>
         <div class="feature-title">FPL Scout</div>
         <div class="feature-desc">Real-time FPL data, player prices, ownership percentages, and fixture difficulty ratings to optimize your fantasy squad performance.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SCOUT ═══════════════════════ -->
+<section id="scout" class="section">
+  <div class="container">
+    <div class="features-header">
+      <span class="label reveal">Beyond The Engine</span>
+      <div class="divider reveal"></div>
+      <h2 class="title reveal reveal-delay-1">Scout.<br/>Every match, <em>with the numbers</em>.</h2>
+      <p class="subtitle reveal reveal-delay-2" style="margin-top:16px">The engine tells you how to line up. Scout shows you the whole weekend, with Tactica's ratings sitting inside every fixture.</p>
+    </div>
+
+    <div class="scout-grid">
+
+      <div class="feature-card scout-card reveal">
+        <span class="scout-badge volt">For fans &amp; analysts</span>
+        <div class="scout-name">Scout</div>
+        <div class="scout-desc">Live scores, lineups, head to head and full match stats. The difference is the Facts tab: Tactica's win probability and attack/defence ratings on every match, locked in before kickoff.</div>
+        <ul class="scout-list">
+          <li>Live scores grouped by league, refreshing through the match</li>
+          <li>Lineups, head to head records and full match statistics</li>
+          <li>Pre-match win probability and ATK/DEF ratings, frozen before kickoff so they can never be rewritten after the result</li>
+          <li>Player comparison on a six-axis radar, side by side</li>
+          <li>Follow teams, leagues and players for a feed of your own</li>
+        </ul>
+        <a href="https://scout.tacticaengine.com" target="_blank" class="scout-link">
+          Open Scout
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="feature-card scout-card cyan-accent reveal reveal-delay-1">
+        <span class="scout-badge cyan">For organisers</span>
+        <div class="scout-name">Scout Editor</div>
+        <div class="scout-desc">Run your own competition on the same platform. School leagues, academy tournaments, local cups. Build it once and it appears in Scout like any other competition.</div>
+        <ul class="scout-list">
+          <li>Create a competition and register teams and players</li>
+          <li>Generate the fixture list automatically</li>
+          <li>Update scores and match events live as games are played</li>
+          <li>Published to Scout once approved, so anyone can follow along</li>
+        </ul>
+        <a href="https://scouteditor.tacticaengine.com" target="_blank" class="scout-link">
+          Open Scout Editor
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
 
     </div>
@@ -1063,7 +1222,7 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
           <span class="faq-q-text">Is the web app the same as the mobile app?</span>
           <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#CCFF00" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">Yes — the web app at app.tactica.com.ng has every feature available in the iOS and Android apps. Use whichever is most convenient; your account syncs across both.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — the web app at app.tacticaengine.com has every feature available in the iOS and Android apps. Use whichever is most convenient; your account syncs across both.</div></div>
       </div>
 
     </div>
@@ -1079,7 +1238,7 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
       <h2 class="cta-title reveal reveal-delay-1">Your next formation<br/>is one tap <em>away</em>.</h2>
       <p class="cta-sub reveal reveal-delay-2">Open Tactica in your browser right now, or download the app for the full experience on the go.</p>
       <div class="cta-actions reveal reveal-delay-3">
-        <a href="https://app.tactica.com.ng" target="_blank" class="btn btn-volt">
+        <a href="https://app.tacticaengine.com" target="_blank" class="btn btn-volt">
           Launch Web App
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -1137,6 +1296,7 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
       <div class="footer-col-title">Product</div>
       <div class="footer-links">
         <a href="#features">Features</a>
+        <a href="#scout">Scout</a>
         <a href="#how">How It Works</a>
         <a href="#screens">App Preview</a>
         <a href="#faq">FAQ</a>
@@ -1145,7 +1305,7 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
     <div>
       <div class="footer-col-title">Get Started</div>
       <div class="footer-links">
-        <a href="https://app.tactica.com.ng" target="_blank">Launch Web App</a>
+        <a href="https://app.tacticaengine.com" target="_blank">Launch Web App</a>
         <a href="#">App Store</a>
         <a href="https://github.com/iamtjbest/Tactica-web/releases/download/v1.0.0/application-678d8894-f20c-46c2-85c4-5e09a47e2b0a.apk" download="Tactica.apk">
           Android APK <span style="font-size:10px; color:var(--volt); font-family:var(--ff-mono);">(Download)</span>
