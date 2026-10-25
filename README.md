@@ -24,14 +24,19 @@ Tactica-web/
 ├── privacy.html        # Privacy policy
 ├── terms.html          # Terms of service
 ├── icon.svg            # Favicon
-├── downloads/          # Directory for local APK downloads (optional)
+├── og.png              # 1200x630 social share image (Open Graph / X card)
+├── sitemap.xml         # Clean URLs only, cleanUrls:true is on in vercel.json
+├── robots.txt          # Points at the sitemap above
+├── site.webmanifest    # PWA manifest
 └── README.md           # This file
 ```
 
 ## Links
 
-- **Website**: [tactica.com.ng](https://tactica.com.ng)
-- **Web App**: [app.tactica.com.ng](https://app.tactica.com.ng)
+- **Website**: [tacticaengine.com](https://tacticaengine.com)
+- **Web App (the engine)**: [app.tacticaengine.com](https://app.tacticaengine.com)
+- **Scout** (live scores + player comparison): [scout.tacticaengine.com](https://scout.tacticaengine.com)
+- **Scout Editor** (run a competition): [scouteditor.tacticaengine.com](https://scouteditor.tacticaengine.com)
 - **Android APK**: [Download from GitHub Releases](https://github.com/iamtjbest/Tactica-web/releases/latest)
 - **X/Twitter**: [@TacticaEngine](https://x.com/TacticaEngine)
 
