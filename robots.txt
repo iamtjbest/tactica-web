@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tactica.com.ng/sitemap.xml
+Sitemap: https://tacticaengine.com/sitemap.xml
